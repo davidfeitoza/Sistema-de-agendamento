@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Agendamentos</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📅 Sistema de Agendamentos</h1>
+            <p>Gerencie seus compromissos de forma simples</p>
+        </header>
+
+        <div class="card">
+            <h2>➕ Novo Agendamento</h2>
+            <form id="form-agendamento">
+                <div class="form-group">
+                    <label for="cliente">Nome do Cliente:</label>
+                    <input type="text" id="cliente" placeholder="Digite o nome do cliente" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="servico">Serviço:</label>
+                    <select id="servico" required>
+                        <option value="">Selecione um serviço</option>
+                        <option value="Corte de Cabelo">Corte de Cabelo</option>
+                        <option value="Manicure">Manicure</option>
+                        <option value="Pedicure">Pedicure</option>
+                        <option value="Massagem">Massagem</option>
+                        <option value="Consulta">Consulta</option>
+                        <option value="Reunião">Reunião</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="data">Data:</label>
+                        <input type="date" id="data" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hora">Hora:</label>
+                        <input type="time" id="hora" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="observacoes">Observações:</label>
+                    <textarea id="observacoes" placeholder="Observações adicionais..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    💾 Salvar Agendamento
+                </button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>📋 Lista de Agendamentos</h2>
+            <div class="filtros">
+                <input type="date" id="filtro-data">
+                <button onclick="filtrarPorData()">Filtrar por Data</button>
+                <button onclick="limparFiltro()" class="btn-secondary">Limpar Filtro</button>
+            </div>
+            
+            <div id="lista-agendamentos">
+                <!-- Os agendamentos serão carregados aqui -->
+                <p class="vazio">Carregando agendamentos...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para confirmar exclusão -->
+    <div id="modal-excluir" class="modal">
+        <div class="modal-content">
+            <h3>🗑️ Confirmar Exclusão</h3>
+            <p>Tem certeza que deseja excluir este agendamento?</p>
+            <div class="modal-buttons">
+                <button onclick="fecharModal()" class="btn-secondary">Cancelar</button>
+                <button onclick="confirmarExclusao()" class="btn-danger">Sim, Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
