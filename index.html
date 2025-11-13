@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Agendamentos</title>
+    <title>Sistema Corporativo de Agendamentos</title>
     <link rel="stylesheet" href="style.css">
     
     <!-- Firebase SDK -->
@@ -12,79 +12,233 @@
 </head>
 <body>
     <div class="container">
+        <!-- Header com Login -->
         <header>
-            <h1>📅 Sistema de Agendamentos</h1>
-            <p>Gerencie seus compromissos de forma simples</p>
+            <div class="header-content">
+                <h1>🏢 Sistema Corporativo de Agendamentos</h1>
+                <div class="login-section">
+                    <select id="tipo-usuario">
+                        <option value="">Selecionar Tipo de Usuário</option>
+                        <option value="funcionario">Funcionário/Vendedor</option>
+                        <option value="cliente">Cliente Externo</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                    <input type="email" id="user-email" placeholder="Seu e-mail">
+                    <button onclick="fazerLogin()">Entrar</button>
+                </div>
+            </div>
         </header>
 
-        <div class="card">
-            <h2>➕ Novo Agendamento</h2>
-            <form id="form-agendamento">
-                <div class="form-group">
-                    <label for="cliente">Nome do Cliente:</label>
-                    <input type="text" id="cliente" placeholder="Digite o nome do cliente" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="servico">Serviço:</label>
-                    <select id="servico" required>
-                        <option value="">Selecione um serviço</option>
-                        <option value="Corte de Cabelo">Corte de Cabelo</option>
-                        <option value="Manicure">Manicure</option>
-                        <option value="Pedicure">Pedicure</option>
-                        <option value="Massagem">Massagem</option>
-                        <option value="Consulta">Consulta</option>
-                        <option value="Reunião">Reunião</option>
-                        <option value="Outro">Outro</option>
-                    </select>
+        <!-- Dashboard Principal -->
+        <div id="dashboard" class="hidden">
+            <!-- Dashboard do Funcionário -->
+            <div id="funcionario-view" class="user-view hidden">
+                <div class="dashboard-header">
+                    <h2>📊 Dashboard do Funcionário</h2>
+                    <div class="stats">
+                        <div class="stat-card">
+                            <h3>Hoje</h3>
+                            <span id="reunioes-hoje">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Esta Semana</h3>
+                            <span id="reunioes-semana">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Pendentes</h3>
+                            <span id="reunioes-pendentes">0</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="data">Data:</label>
-                        <input type="date" id="data" required>
+                <div class="card">
+                    <h3>➕ Nova Reunião</h3>
+                    <form id="form-reuniao">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cliente-email">E-mail do Cliente:</label>
+                                <input type="email" id="cliente-email" placeholder="cliente@empresa.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cliente-nome">Nome do Cliente:</label>
+                                <input type="text" id="cliente-nome" placeholder="Nome completo" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tipo-reuniao">Tipo de Reunião:</label>
+                                <select id="tipo-reuniao" required>
+                                    <option value="">Selecione o tipo</option>
+                                    <option value="vendas">Reunião de Vendas</option>
+                                    <option value="consultoria">Consultoria</option>
+                                    <option value="apresentacao">Apresentação</option>
+                                    <option value="suporte">Suporte Técnico</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="duracao">Duração:</label>
+                                <select id="duracao" required>
+                                    <option value="30">30 minutos</option>
+                                    <option value="60" selected>1 hora</option>
+                                    <option value="90">1h30</option>
+                                    <option value="120">2 horas</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="data-reuniao">Data:</label>
+                                <input type="date" id="data-reuniao" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="hora-reuniao">Hora:</label>
+                                <input type="time" id="hora-reuniao" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="local-reuniao">Local/Plataforma:</label>
+                            <select id="local-reuniao" required>
+                                <option value="">Selecione o local</option>
+                                <option value="presencial">Presencial - Sala de Reuniões</option>
+                                <option value="google-meet">Google Meet</option>
+                                <option value="teams">Microsoft Teams</option>
+                                <option value="zoom">Zoom</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="link-reuniao">Link da Reunião (se online):</label>
+                            <input type="url" id="link-reuniao" placeholder="https://">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pauta">Pauta/Objetivo da Reunião:</label>
+                            <textarea id="pauta" placeholder="Descreva os objetivos e tópicos da reunião..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            📧 Enviar Convite
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>📋 Reuniões Agendadas</h3>
+                    <div class="filtros">
+                        <select id="filtro-status">
+                            <option value="">Todos os Status</option>
+                            <option value="pendente">Pendente</option>
+                            <option value="confirmada">Confirmada</option>
+                            <option value="cancelada">Cancelada</option>
+                            <option value="concluida">Concluída</option>
+                        </select>
+                        <input type="date" id="filtro-data">
+                        <button onclick="aplicarFiltros()">Aplicar Filtros</button>
+                        <button onclick="exportarRelatorio()" class="btn-secondary">📊 Exportar Relatório</button>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="hora">Hora:</label>
-                        <input type="time" id="hora" required>
+                    <div id="lista-reunioes-funcionario">
+                        <p class="vazio">Carregando reuniões...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard do Cliente -->
+            <div id="cliente-view" class="user-view hidden">
+                <div class="dashboard-header">
+                    <h2>👋 Bem-vindo, <span id="nome-cliente">Cliente</span></h2>
+                    <p>Gerencie suas reuniões agendadas</p>
+                </div>
+
+                <div class="card">
+                    <h3>📅 Suas Reuniões</h3>
+                    <div id="lista-reunioes-cliente">
+                        <p class="vazio">Carregando suas reuniões...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard do Administrador -->
+            <div id="admin-view" class="user-view hidden">
+                <div class="dashboard-header">
+                    <h2>⚙️ Painel do Administrador</h2>
+                </div>
+
+                <div class="admin-stats">
+                    <div class="stat-card large">
+                        <h3>Total de Reuniões</h3>
+                        <span id="total-reunioes">0</span>
+                    </div>
+                    <div class="stat-card large">
+                        <h3>Taxa de Confirmação</h3>
+                        <span id="taxa-confirmacao">0%</span>
+                    </div>
+                    <div class="stat-card large">
+                        <h3>Funcionários Ativos</h3>
+                        <span id="funcionarios-ativos">0</span>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="observacoes">Observações:</label>
-                    <textarea id="observacoes" placeholder="Observações adicionais..."></textarea>
+                <div class="card">
+                    <h3>👥 Gerenciar Funcionários</h3>
+                    <div class="form-row">
+                        <input type="text" id="novo-funcionario" placeholder="Nome do funcionário">
+                        <input type="email" id="email-funcionario" placeholder="E-mail">
+                        <button onclick="adicionarFuncionario()" class="btn-primary">Adicionar Funcionário</button>
+                    </div>
+                    <div id="lista-funcionarios">
+                        <!-- Lista de funcionários será carregada aqui -->
+                    </div>
                 </div>
 
-                <button type="submit" class="btn-primary">
-                    💾 Salvar Agendamento
-                </button>
-            </form>
-        </div>
-
-        <div class="card">
-            <h2>📋 Lista de Agendamentos</h2>
-            <div class="filtros">
-                <input type="date" id="filtro-data">
-                <button onclick="filtrarPorData()">Filtrar por Data</button>
-                <button onclick="limparFiltro()" class="btn-secondary">Limpar Filtro</button>
-            </div>
-            
-            <div id="lista-agendamentos">
-                <!-- Os agendamentos serão carregados aqui -->
-                <p class="vazio">Carregando agendamentos...</p>
+                <div class="card">
+                    <h3>📈 Relatórios</h3>
+                    <div class="form-row">
+                        <input type="date" id="data-inicio">
+                        <input type="date" id="data-fim">
+                        <button onclick="gerarRelatorio()" class="btn-secondary">Gerar Relatório</button>
+                    </div>
+                    <div id="relatorio-admin">
+                        <!-- Relatório será gerado aqui -->
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal para confirmar exclusão -->
-    <div id="modal-excluir" class="modal">
-        <div class="modal-content">
-            <h3>🗑️ Confirmar Exclusão</h3>
-            <p>Tem certeza que deseja excluir este agendamento?</p>
-            <div class="modal-buttons">
-                <button onclick="fecharModal()" class="btn-secondary">Cancelar</button>
-                <button onclick="confirmarExclusao()" class="btn-danger">Sim, Excluir</button>
+        <!-- Modal para Confirmar/Recusar Reunião -->
+        <div id="modal-confirmacao" class="modal">
+            <div class="modal-content">
+                <h3>🤔 Confirmar Reunião</h3>
+                <div id="detalhes-reuniao"></div>
+                <div class="modal-buttons">
+                    <button onclick="recusarReuniao()" class="btn-danger">❌ Recusar</button>
+                    <button onclick="proporNovoHorario()" class="btn-secondary">🕐 Propor Novo Horário</button>
+                    <button onclick="confirmarReuniao()" class="btn-success">✅ Confirmar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Propor Novo Horário -->
+        <div id="modal-novo-horario" class="modal">
+            <div class="modal-content">
+                <h3>🕐 Propor Novo Horário</h3>
+                <div class="form-group">
+                    <label>Nova Data:</label>
+                    <input type="date" id="nova-data">
+                </div>
+                <div class="form-group">
+                    <label>Nova Hora:</label>
+                    <input type="time" id="nova-hora">
+                </div>
+                <div class="modal-buttons">
+                    <button onclick="fecharModalHorario()" class="btn-secondary">Cancelar</button>
+                    <button onclick="enviarProposta()" class="btn-primary">Enviar Proposta</button>
+                </div>
             </div>
         </div>
     </div>
