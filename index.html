@@ -3,91 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema profissional de agendamentos com Firebase">
     <title>Sistema de Agendamentos</title>
     <link rel="stylesheet" href="style.css">
     
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <!-- Firebase SDK (versão moderna modular) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>📅 Sistema de Agendamentos</h1>
-            <p>Gerencie seus compromissos de forma simples</p>
+        <!-- Header -->
+        <header class="header" role="banner">
+            <div class="header-content">
+                <h1 class="header-title">📅 Sistema de Agendamentos</h1>
+                <p class="header-subtitle">Gerencie seus compromissos de forma simples e eficiente</p>
+            </div>
         </header>
 
-        <div class="card">
-            <h2>➕ Novo Agendamento</h2>
-            <form id="form-agendamento">
-                <div class="form-group">
-                    <label for="cliente">Nome do Cliente:</label>
-                    <input type="text" id="cliente" placeholder="Digite o nome do cliente" required>
-                </div>
+        <main class="main-content" role="main">
+            <!-- Card: Formulário -->
+            <section class="card card-form" aria-labelledby="form-title">
+                <h2 id="form-title" class="card-title">➕ Novo Agendamento</h2>
                 
-                <div class="form-group">
-                    <label for="servico">Serviço:</label>
-                    <select id="servico" required>
-                        <option value="">Selecione um serviço</option>
-                        <option value="Corte de Cabelo">Corte de Cabelo</option>
-                        <option value="Manicure">Manicure</option>
-                        <option value="Pedicure">Pedicure</option>
-                        <option value="Massagem">Massagem</option>
-                        <option value="Consulta">Consulta</option>
-                        <option value="Reunião">Reunião</option>
-                        <option value="Outro">Outro</option>
-                    </select>
-                </div>
-
-                <div class="form-row">
+                <form id="form-agendamento" class="form" novalidate>
+                    <!-- Campo: Nome do Cliente -->
                     <div class="form-group">
-                        <label for="data">Data:</label>
-                        <input type="date" id="data" required>
+                        <label for="cliente" class="form-label">
+                            Nome do Cliente <span class="required" aria-label="obrigatório">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="cliente" 
+                            name="cliente"
+                            placeholder="Digite o nome do cliente" 
+                            required
+                            minlength="3"
+                            maxlength="100"
+                            class="form-input"
+                            aria-required="true"
+                            aria-describedby="cliente-error"
+                        >
+                        <span id="cliente-error" class="error-message" role="alert"></span>
                     </div>
                     
+                    <!-- Campo: Serviço -->
                     <div class="form-group">
-                        <label for="hora">Hora:</label>
-                        <input type="time" id="hora" required>
+                        <label for="servico" class="form-label">
+                            Serviço <span class="required" aria-label="obrigatório">*</span>
+                        </label>
+                        <select 
+                            id="servico" 
+                            name="servico"
+                            required
+                            class="form-input"
+                            aria-required="true"
+                            aria-describedby="servico-error"
+                        >
+                            <option value="">Selecione um serviço</option>
+                            <option value="Corte de Cabelo">Corte de Cabelo</option>
+                            <option value="Manicure">Manicure</option>
+                            <option value="Pedicure">Pedicure</option>
+                            <option value="Massagem">Massagem</option>
+                            <option value="Consulta">Consulta</option>
+                            <option value="Reunião">Reunião</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                        <span id="servico-error" class="error-message" role="alert"></span>
+                    </div>
+
+                    <!-- Campos: Data e Hora -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="data" class="form-label">
+                                Data <span class="required" aria-label="obrigatório">*</span>
+                            </label>
+                            <input 
+                                type="date" 
+                                id="data" 
+                                name="data"
+                                required
+                                class="form-input"
+                                aria-required="true"
+                                aria-describedby="data-error"
+                            >
+                            <span id="data-error" class="error-message" role="alert"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hora" class="form-label">
+                                Hora <span class="required" aria-label="obrigatório">*</span>
+                            </label>
+                            <input 
+                                type="time" 
+                                id="hora" 
+                                name="hora"
+                                required
+                                class="form-input"
+                                aria-required="true"
+                                aria-describedby="hora-error"
+                            >
+                            <span id="hora-error" class="error-message" role="alert"></span>
+                        </div>
+                    </div>
+
+                    <!-- Campo: Observações -->
+                    <div class="form-group">
+                        <label for="observacoes" class="form-label">Observações</label>
+                        <textarea 
+                            id="observacoes" 
+                            name="observacoes"
+                            placeholder="Observações adicionais..."
+                            maxlength="500"
+                            class="form-input form-textarea"
+                            aria-describedby="observacoes-count"
+                        ></textarea>
+                        <small id="observacoes-count" class="form-hint">
+                            <span id="char-count">0</span>/500 caracteres
+                        </small>
+                    </div>
+
+                    <!-- Botão de Envio -->
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary btn-block"
+                        id="btn-submit"
+                    >
+                        💾 Salvar Agendamento
+                    </button>
+                </form>
+            </section>
+
+            <!-- Card: Lista de Agendamentos -->
+            <section class="card card-list" aria-labelledby="list-title">
+                <h2 id="list-title" class="card-title">📋 Lista de Agendamentos</h2>
+                
+                <!-- Filtros -->
+                <div class="filtros" role="search" aria-label="Filtrar agendamentos">
+                    <div class="filtro-group">
+                        <label for="filtro-data" class="filtro-label">Filtrar por Data:</label>
+                        <input 
+                            type="date" 
+                            id="filtro-data"
+                            class="form-input"
+                            aria-label="Data para filtrar agendamentos"
+                        >
+                    </div>
+                    <div class="filtro-buttons">
+                        <button 
+                            type="button"
+                            onclick="filtrarPorData()" 
+                            class="btn btn-secondary"
+                            aria-label="Aplicar filtro de data"
+                        >
+                            Filtrar
+                        </button>
+                        <button 
+                            type="button"
+                            onclick="limparFiltro()" 
+                            class="btn btn-secondary"
+                            aria-label="Limpar filtro de data"
+                        >
+                            Limpar Filtro
+                        </button>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="observacoes">Observações:</label>
-                    <textarea id="observacoes" placeholder="Observações adicionais..."></textarea>
+                
+                <!-- Lista -->
+                <div id="lista-agendamentos" class="lista-agendamentos" role="region" aria-live="polite" aria-label="Lista de agendamentos">
+                    <p class="vazio">Carregando agendamentos...</p>
                 </div>
-
-                <button type="submit" class="btn-primary">
-                    💾 Salvar Agendamento
-                </button>
-            </form>
-        </div>
-
-        <div class="card">
-            <h2>📋 Lista de Agendamentos</h2>
-            <div class="filtros">
-                <input type="date" id="filtro-data">
-                <button onclick="filtrarPorData()">Filtrar por Data</button>
-                <button onclick="limparFiltro()" class="btn-secondary">Limpar Filtro</button>
-            </div>
-            
-            <div id="lista-agendamentos">
-                <!-- Os agendamentos serão carregados aqui -->
-                <p class="vazio">Carregando agendamentos...</p>
-            </div>
-        </div>
+            </section>
+        </main>
     </div>
 
     <!-- Modal para confirmar exclusão -->
-    <div id="modal-excluir" class="modal">
+    <div id="modal-excluir" class="modal" role="alertdialog" aria-labelledby="modal-title" aria-describedby="modal-desc" aria-hidden="true">
+        <div class="modal-overlay" onclick="fecharModal()"></div>
         <div class="modal-content">
-            <h3>🗑️ Confirmar Exclusão</h3>
-            <p>Tem certeza que deseja excluir este agendamento?</p>
+            <h3 id="modal-title" class="modal-title">🗑️ Confirmar Exclusão</h3>
+            <p id="modal-desc" class="modal-description">Tem certeza que deseja excluir este agendamento? Esta ação não pode ser desfeita.</p>
             <div class="modal-buttons">
-                <button onclick="fecharModal()" class="btn-secondary">Cancelar</button>
-                <button onclick="confirmarExclusao()" class="btn-danger">Sim, Excluir</button>
+                <button 
+                    type="button"
+                    onclick="fecharModal()" 
+                    class="btn btn-secondary"
+                    aria-label="Cancelar exclusão"
+                >
+                    Cancelar
+                </button>
+                <button 
+                    type="button"
+                    onclick="confirmarExclusao()" 
+                    class="btn btn-danger"
+                    aria-label="Confirmar exclusão do agendamento"
+                >
+                    Sim, Excluir
+                </button>
             </div>
         </div>
     </div>
+
+    <!-- Notificação Toast -->
+    <div id="toast-container" class="toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <script src="script.js"></script>
 </body>
