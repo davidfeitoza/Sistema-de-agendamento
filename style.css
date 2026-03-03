@@ -1,31 +1,26 @@
 /* ============================================
-   SISTEMA DE AGENDAMENTOS - ESTILOS MODERNOS
-   Design: Minimalismo Corporativo Elegante
-   ============================================ */
-
-/* ============================================
-   1. RESET E VARIÁVEIS
+   GERENCIADOR DE REUNIÕES - DESIGN EMPRESARIAL
    ============================================ */
 
 :root {
-    /* Cores - Paleta Profissional */
-    --color-primary: #2563eb;
-    --color-primary-dark: #1e40af;
-    --color-primary-light: #3b82f6;
-    --color-secondary: #64748b;
-    --color-success: #10b981;
-    --color-danger: #ef4444;
-    --color-warning: #f59e0b;
-    --color-info: #06b6d4;
+    /* Cores - Paleta Corporativa Premium */
+    --primary: #1e3a8a;
+    --primary-light: #3b82f6;
+    --primary-dark: #1e40af;
+    --secondary: #475569;
+    --accent: #0ea5e9;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
     
     /* Neutros */
-    --color-white: #ffffff;
-    --color-bg-light: #f8fafc;
-    --color-bg-lighter: #f1f5f9;
-    --color-border: #e2e8f0;
-    --color-text-primary: #1f2937;
-    --color-text-secondary: #6b7280;
-    --color-text-muted: #9ca3af;
+    --white: #ffffff;
+    --bg-primary: #f8fafc;
+    --bg-secondary: #f1f5f9;
+    --border: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
     
     /* Espaçamento */
     --spacing-xs: 0.25rem;
@@ -36,7 +31,8 @@
     --spacing-2xl: 3rem;
     
     /* Tipografia */
-    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
     --font-size-base: 1rem;
     --font-size-lg: 1.125rem;
@@ -47,11 +43,12 @@
     /* Outros */
     --border-radius: 0.5rem;
     --border-radius-lg: 1rem;
-    --transition-fast: 150ms ease-in-out;
-    --transition-normal: 300ms ease-in-out;
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --border-radius-xl: 1.5rem;
+    --transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.15);
+    --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.2);
 }
 
 * {
@@ -66,105 +63,220 @@ html {
 
 body {
     font-family: var(--font-family);
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-    color: var(--color-text-primary);
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
-    padding: var(--spacing-md);
 }
 
 /* ============================================
-   2. CONTAINER E LAYOUT
+   LAYOUT PRINCIPAL
    ============================================ */
 
-.container {
-    max-width: 1200px;
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: var(--spacing-2xl);
+    padding: var(--spacing-2xl);
+    max-width: 1600px;
     margin: 0 auto;
     width: 100%;
 }
 
-.main-content {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: var(--spacing-xl);
-    margin-top: var(--spacing-xl);
-}
-
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .main-content {
         grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
+        gap: var(--spacing-xl);
+        padding: var(--spacing-xl);
     }
 }
 
 /* ============================================
-   3. HEADER
+   HEADER
    ============================================ */
 
 .header {
-    background: var(--color-white);
-    border-bottom: 2px solid var(--color-border);
-    padding: var(--spacing-xl) var(--spacing-md);
-    margin-bottom: var(--spacing-xl);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-sm);
-    text-align: center;
-}
-
-.header-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.header-title {
-    font-size: var(--font-size-3xl);
-    font-weight: 700;
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-sm);
-    letter-spacing: -0.5px;
-}
-
-.header-subtitle {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-secondary);
-    font-weight: 400;
-}
-
-/* ============================================
-   4. CARDS
-   ============================================ */
-
-.card {
-    background: var(--color-white);
-    border-radius: var(--border-radius-lg);
-    padding: var(--spacing-xl);
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--color-border);
-    transition: box-shadow var(--transition-normal), transform var(--transition-normal);
-}
-
-.card:hover {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    padding: var(--spacing-xl) var(--spacing-2xl);
     box-shadow: var(--shadow-lg);
 }
 
-.card-form {
-    position: sticky;
-    top: var(--spacing-md);
-    height: fit-content;
+.header-content {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
-.card-title {
-    font-size: var(--font-size-xl);
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.logo-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.logo-text h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+    letter-spacing: -0.5px;
+}
+
+.logo-text p {
+    font-size: var(--font-size-sm);
+    opacity: 0.9;
+}
+
+.header-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.hora-atual {
+    font-size: var(--font-size-lg);
     font-weight: 600;
-    color: var(--color-text-primary);
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-md);
-    border-bottom: 2px solid var(--color-primary);
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: var(--spacing-lg);
+        text-align: center;
+    }
+
+    .logo-section {
+        justify-content: center;
+    }
 }
 
 /* ============================================
-   5. FORMULÁRIO
+   REUNIÃO AO VIVO
    ============================================ */
+
+.reuniao-ao-vivo {
+    position: fixed;
+    top: 100px;
+    right: var(--spacing-xl);
+    background: var(--white);
+    border-left: 4px solid var(--danger);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-xl);
+    z-index: 999;
+    animation: slideInRight var(--transition);
+    max-width: 350px;
+}
+
+.reuniao-ao-vivo.hidden {
+    display: none;
+}
+
+.reuniao-ao-vivo-content {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: flex-start;
+}
+
+.reuniao-ao-vivo-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    white-space: nowrap;
+}
+
+.pulse {
+    width: 12px;
+    height: 12px;
+    background: var(--danger);
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.pulse-text {
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    color: var(--danger);
+    letter-spacing: 1px;
+}
+
+.reuniao-ao-vivo-info h3 {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.reuniao-ao-vivo-info p {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .reuniao-ao-vivo {
+        right: var(--spacing-lg);
+        left: var(--spacing-lg);
+        max-width: none;
+        top: auto;
+        bottom: var(--spacing-xl);
+    }
+}
+
+/* ============================================
+   FORMULÁRIO
+   ============================================ */
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-card {
+    background: var(--white);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+    position: sticky;
+    top: var(--spacing-xl);
+    height: fit-content;
+}
+
+.form-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--primary);
+}
 
 .form {
     display: flex;
@@ -184,47 +296,47 @@ body {
     gap: var(--spacing-md);
 }
 
-@media (max-width: 640px) {
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-}
-
 .form-label {
     font-weight: 600;
     font-size: var(--font-size-sm);
-    color: var(--color-text-primary);
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
 }
 
 .required {
-    color: var(--color-danger);
+    color: var(--danger);
     font-weight: 700;
 }
 
 .form-input,
 .form-textarea {
     padding: var(--spacing-md);
-    border: 2px solid var(--color-border);
+    border: 1.5px solid var(--border);
     border-radius: var(--border-radius);
     font-size: var(--font-size-base);
     font-family: inherit;
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-    background: var(--color-white);
+    transition: all var(--transition);
+    background: var(--white);
+    color: var(--text-primary);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: var(--text-muted);
 }
 
 .form-input:focus,
 .form-textarea:focus {
     outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
 }
 
 .form-input:invalid:not(:placeholder-shown),
 .form-textarea:invalid:not(:placeholder-shown) {
-    border-color: var(--color-danger);
+    border-color: var(--danger);
 }
 
 .form-textarea {
@@ -235,13 +347,13 @@ body {
 
 .form-hint {
     font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
+    color: var(--text-muted);
     display: block;
 }
 
 .error-message {
     font-size: var(--font-size-sm);
-    color: var(--color-danger);
+    color: var(--danger);
     display: none;
     font-weight: 500;
 }
@@ -251,7 +363,7 @@ body {
 }
 
 /* ============================================
-   6. BOTÕES
+   BOTÕES
    ============================================ */
 
 .btn {
@@ -261,7 +373,7 @@ body {
     font-size: var(--font-size-base);
     font-weight: 600;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: all var(--transition);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -277,33 +389,29 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-    color: var(--color-white);
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
 }
 
 .btn-primary:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-}
-
-.btn-primary:active:not(:disabled) {
-    transform: translateY(0);
+    box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
 }
 
 .btn-secondary {
-    background: var(--color-secondary);
-    color: var(--color-white);
+    background: var(--secondary);
+    color: var(--white);
 }
 
 .btn-secondary:hover:not(:disabled) {
-    background: #475569;
+    background: #334155;
     transform: translateY(-1px);
 }
 
 .btn-danger {
-    background: var(--color-danger);
-    color: var(--color-white);
+    background: var(--danger);
+    color: var(--white);
 }
 
 .btn-danger:hover:not(:disabled) {
@@ -315,114 +423,173 @@ body {
     width: 100%;
 }
 
+.btn-small {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+}
+
 /* ============================================
-   7. FILTROS
+   REUNIÕES
    ============================================ */
+
+.reunioes-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.reunioes-card {
+    background: var(--white);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+}
+
+.reunioes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--primary);
+    gap: var(--spacing-lg);
+}
+
+.reunioes-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
 
 .filtros {
     display: flex;
-    flex-direction: column;
     gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
+    align-items: center;
+}
+
+.filtro-input {
+    max-width: 150px;
+}
+
+.lista-reunioes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.reuniao-item {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    border-left: 4px solid var(--primary);
     padding: var(--spacing-lg);
-    background: var(--color-bg-lighter);
-    border-radius: var(--border-radius);
-    border-left: 4px solid var(--color-primary);
+    border-radius: var(--border-radius-lg);
+    transition: all var(--transition);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
 }
 
-.filtro-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
+.reuniao-item:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-lg);
+    background: var(--white);
 }
 
-.filtro-label {
-    font-weight: 600;
-    font-size: var(--font-size-sm);
-    color: var(--color-text-primary);
+.reuniao-item.ao-vivo {
+    border-left-color: var(--danger);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(239, 68, 68, 0.02) 100%);
 }
 
-.filtro-buttons {
-    display: flex;
-    gap: var(--spacing-md);
-    flex-wrap: wrap;
+.reuniao-item.ao-vivo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--danger);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-.filtro-buttons .btn {
-    flex: 1;
-    min-width: 120px;
-}
-
-@media (max-width: 640px) {
-    .filtro-buttons {
-        flex-direction: column;
-    }
-
-    .filtro-buttons .btn {
-        min-width: auto;
-    }
-}
-
-/* ============================================
-   8. LISTA DE AGENDAMENTOS
-   ============================================ */
-
-.lista-agendamentos {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-}
-
-.agendamento-item {
-    background: var(--color-bg-lighter);
-    border-left: 4px solid var(--color-primary);
-    padding: var(--spacing-lg);
-    border-radius: var(--border-radius);
+.reuniao-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: var(--spacing-lg);
-    transition: all var(--transition-normal);
-    border: 1px solid var(--color-border);
+    margin-bottom: var(--spacing-md);
+    gap: var(--spacing-md);
 }
 
-.agendamento-item:hover {
-    transform: translateX(4px);
-    box-shadow: var(--shadow-md);
-    background: var(--color-white);
-}
-
-.agendamento-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.agendamento-info h3 {
-    color: var(--color-text-primary);
+.reuniao-titulo {
     font-size: var(--font-size-lg);
-    font-weight: 600;
-    margin-bottom: var(--spacing-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    flex: 1;
 }
 
-.agendamento-info p {
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-sm);
-    margin-bottom: var(--spacing-xs);
-    display: flex;
+.reuniao-badge {
+    display: inline-flex;
     align-items: center;
+    gap: var(--spacing-xs);
+    background: var(--danger);
+    color: var(--white);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.reuniao-badge .pulse {
+    width: 8px;
+    height: 8px;
+}
+
+.reuniao-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.reuniao-info-item {
+    display: flex;
+    align-items: flex-start;
     gap: var(--spacing-sm);
 }
 
-.agendamento-acoes {
+.reuniao-info-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    min-width: 80px;
+}
+
+.reuniao-info-value {
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+}
+
+.reuniao-descricao {
+    background: var(--white);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--accent);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.reuniao-acoes {
     display: flex;
     gap: var(--spacing-sm);
-    flex-wrap: wrap;
     justify-content: flex-end;
 }
 
 .btn-excluir {
-    background: var(--color-danger);
-    color: var(--color-white);
+    background: var(--danger);
+    color: var(--white);
     padding: var(--spacing-sm) var(--spacing-md);
     font-size: var(--font-size-sm);
 }
@@ -431,18 +598,43 @@ body {
     background: #dc2626;
 }
 
+.carregando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-2xl);
+    gap: var(--spacing-lg);
+    color: var(--text-muted);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .vazio {
     text-align: center;
-    color: var(--color-text-muted);
+    color: var(--text-muted);
     font-style: italic;
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background: var(--color-bg-lighter);
+    background: var(--bg-secondary);
     border-radius: var(--border-radius);
-    border: 2px dashed var(--color-border);
+    border: 2px dashed var(--border);
 }
 
 /* ============================================
-   9. MODAL
+   MODAL
    ============================================ */
 
 .modal {
@@ -453,7 +645,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: 1000;
-    animation: fadeIn var(--transition-normal);
+    animation: fadeIn var(--transition);
 }
 
 .modal.show {
@@ -468,32 +660,32 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(15, 23, 42, 0.5);
     cursor: pointer;
 }
 
 .modal-content {
-    background: var(--color-white);
+    background: var(--white);
     padding: var(--spacing-xl);
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--border-radius-xl);
     max-width: 400px;
     width: 90%;
     text-align: center;
     position: relative;
     z-index: 1001;
-    box-shadow: var(--shadow-lg);
-    animation: slideUp var(--transition-normal);
+    box-shadow: var(--shadow-xl);
+    animation: slideUp var(--transition);
 }
 
 .modal-title {
     font-size: var(--font-size-xl);
     font-weight: 700;
-    color: var(--color-text-primary);
+    color: var(--text-primary);
     margin-bottom: var(--spacing-md);
 }
 
 .modal-description {
-    color: var(--color-text-secondary);
+    color: var(--text-secondary);
     margin-bottom: var(--spacing-lg);
     line-height: 1.6;
 }
@@ -509,13 +701,13 @@ body {
 }
 
 /* ============================================
-   10. TOAST NOTIFICATIONS
+   NOTIFICAÇÕES TOAST
    ============================================ */
 
 .toast-container {
     position: fixed;
-    bottom: var(--spacing-lg);
-    right: var(--spacing-lg);
+    bottom: var(--spacing-xl);
+    right: var(--spacing-xl);
     z-index: 2000;
     display: flex;
     flex-direction: column;
@@ -525,50 +717,37 @@ body {
 
 .toast {
     padding: var(--spacing-lg);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-xl);
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
-    animation: slideInRight var(--transition-normal);
-    color: var(--color-white);
+    animation: slideInRight var(--transition);
+    color: var(--white);
     font-weight: 500;
     min-width: 300px;
 }
 
 .toast.success {
-    background: var(--color-success);
+    background: var(--success);
 }
 
 .toast.error {
-    background: var(--color-danger);
+    background: var(--danger);
 }
 
 .toast.warning {
-    background: var(--color-warning);
+    background: var(--warning);
 }
 
 .toast.info {
-    background: var(--color-info);
-}
-
-.toast-close {
-    background: none;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-    font-size: var(--font-size-lg);
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
+    background: var(--accent);
 }
 
 @media (max-width: 640px) {
     .toast-container {
-        left: var(--spacing-md);
-        right: var(--spacing-md);
+        left: var(--spacing-lg);
+        right: var(--spacing-lg);
         max-width: none;
     }
 
@@ -578,7 +757,7 @@ body {
 }
 
 /* ============================================
-   11. ANIMAÇÕES
+   ANIMAÇÕES
    ============================================ */
 
 @keyframes fadeIn {
@@ -612,82 +791,43 @@ body {
     }
 }
 
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.loading {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: var(--color-white);
-    animation: spin 0.8s linear infinite;
-}
-
 /* ============================================
-   12. ACESSIBILIDADE
-   ============================================ */
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
-
-:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-}
-
-/* ============================================
-   13. RESPONSIVIDADE
+   RESPONSIVIDADE
    ============================================ */
 
 @media (max-width: 768px) {
     :root {
         --spacing-xl: 1.5rem;
-        --font-size-3xl: 1.75rem;
+        --font-size-2xl: 1.5rem;
     }
 
-    .header {
-        padding: var(--spacing-lg) var(--spacing-md);
+    .form-row {
+        grid-template-columns: 1fr;
     }
 
-    .header-title {
-        font-size: var(--font-size-2xl);
-    }
-
-    .card {
-        padding: var(--spacing-lg);
-    }
-
-    .card-form {
-        position: static;
-    }
-
-    .agendamento-item {
+    .reunioes-header {
         flex-direction: column;
-        align-items: stretch;
+        align-items: flex-start;
     }
 
-    .agendamento-acoes {
+    .filtros {
+        width: 100%;
+    }
+
+    .filtro-input {
+        max-width: none;
+        flex: 1;
+    }
+
+    .reuniao-info {
+        grid-template-columns: 1fr;
+    }
+
+    .reuniao-acoes {
         justify-content: stretch;
     }
 
-    .agendamento-acoes .btn {
+    .reuniao-acoes .btn {
         flex: 1;
     }
 }
@@ -697,25 +837,5 @@ body {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-    }
-}
-
-/* ============================================
-   14. MODO ESCURO (Opcional)
-   ============================================ */
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-white: #1a1a1a;
-        --color-bg-light: #2d2d2d;
-        --color-bg-lighter: #3a3a3a;
-        --color-border: #4a4a4a;
-        --color-text-primary: #f0f0f0;
-        --color-text-secondary: #b0b0b0;
-        --color-text-muted: #808080;
-    }
-
-    body {
-        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     }
 }
